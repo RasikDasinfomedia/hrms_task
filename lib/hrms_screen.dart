@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hrms_task/utils/custom_button.dart';
+import 'package:hrms_task/utils/custom_calendar_app.dart';
 import 'package:hrms_task/utils/custom_card.dart';
 import 'package:hrms_task/utils/hrms_colors.dart';
 import 'package:hrms_task/utils/hrms_style.dart';
@@ -35,11 +36,11 @@ class _HrmsScreenState extends State<HrmsScreen> {
     MenuModels(icon: Icons.playlist_add_check, name: "Reports", suffix: Icons.keyboard_arrow_right_rounded)
   ];
   List<MenuModels> cardItemList = [
-    MenuModels(name: "Miss Punch Approved",subName: "14"),
-    MenuModels(name: "Miss Punch Rejected",subName: "21"),
-    MenuModels(name: "Leave Approved",subName: "15"),
-    MenuModels(name: "Leave Rejected",subName: "5"),
-    MenuModels(name: "Holiday",subName: "21")
+    MenuModels(name: "Miss Punch Approved", subName: "14"),
+    MenuModels(name: "Miss Punch Rejected", subName: "21"),
+    MenuModels(name: "Leave Approved", subName: "15"),
+    MenuModels(name: "Leave Rejected", subName: "5"),
+    MenuModels(name: "Holiday", subName: "21")
   ];
 
   @override
@@ -186,7 +187,7 @@ class _HrmsScreenState extends State<HrmsScreen> {
                         padding: const EdgeInsets.only(left: 10.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
-                          color: searchBg, // Set your desired background color
+                          color: searchBg,
                         ),
                         child: TextField(
                           decoration: const InputDecoration(
@@ -196,6 +197,7 @@ class _HrmsScreenState extends State<HrmsScreen> {
                               size: 18,
                               color: textColor,
                             ),
+                            hintText: "Search",
                             contentPadding: EdgeInsets.only(bottom: 18, right: 0),
                           ),
                           cursorHeight: 15,
@@ -253,48 +255,230 @@ class _HrmsScreenState extends State<HrmsScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 25),
-                Row(
-                  children: [Text("Leaves", style: menuStyle.copyWith(fontSize: 12)),
-                    const Spacer(),
-                    customButton(icon: Icons.add_circle, title: "Add Leave", onPressed: () {}),
-                    const SizedBox(width: 10,),
-                    customButton(icon: Icons.add_circle, title: "Add Miss Punch", onPressed: () {}),
-                  ],
-                ),
-                ScrollConfiguration(
-                  behavior: _myCustomScrollBehavior.copyWith(scrollbars: false),
-                  child: SizedBox(
-                    width: width,
-                    height: 110,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: cardItemList.length,
-                      itemBuilder: (context, index) {
-                        return customCard(
-                          width: width * 0.138,
-                          margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(cardItemList[index].name, style: cardTextStyle),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 25),
+                        Row(
+                          children: [
+                            Text("Leaves", style: menuStyle.copyWith(fontSize: 12)),
                             const Spacer(),
-                            Container(
-                              width: 40,
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    color: colorList[index],
-                                    borderRadius: BorderRadius.circular(8)
+                            customButton(icon: Icons.add_circle, title: "Add Leave", onPressed: () {}),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            customButton(icon: Icons.add_circle, title: "Add Miss Punch", onPressed: () {}),
+                          ],
+                        ),
+                        ScrollConfiguration(
+                          behavior: _myCustomScrollBehavior.copyWith(scrollbars: false),
+                          child: SizedBox(
+                            width: width,
+                            height: 110,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              padding: EdgeInsets.zero,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: cardItemList.length,
+                              itemBuilder: (context, index) {
+                                return customCard(
+                                  width: width * 0.138,
+                                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(cardItemList[index].name, style: cardTextStyle),
+                                      const Spacer(),
+                                      Container(
+                                          width: 40,
+                                          alignment: Alignment.center,
+                                          padding: const EdgeInsets.all(8),
+                                          decoration: BoxDecoration(color: colorList[index], borderRadius: BorderRadius.circular(8)),
+                                          child: Text(cardItemList[index].subName!, style: menuStyle.copyWith(fontSize: 15, color: Colors.white))),
+                                    ],
                                   ),
-                                  child: Text(cardItemList[index].subName!, style: menuStyle.copyWith(fontSize: 15,color: Colors.white))),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        customCard(
+                          width: width * 0.3,
+                          padding: EdgeInsets.only(top: 10, right: 17, left: 17),
+                          child: CustomCalendarApp(
+                            [],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              width: width * 0.18,
+                              height: 30,
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(left: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.white,
+                                  border: Border.all(color: dividerColor, width: 1)
+                                  ),
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  prefixIcon: Icon(
+                                    Icons.search_rounded,
+                                    size: 18,
+                                    color: textColor,
+                                  ),
+                                  hintText: "Search",
+                                  contentPadding: EdgeInsets.only(bottom: 17, right: 0),
+                                ),
+                                cursorHeight: 15,
+                                style: menuStyle.copyWith(fontSize: 12, fontWeight: FontWeight.normal),
+                              ),
+                            ),
+                            Spacer(),
+                            Container(
+                              height: 30,
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(left: 10),
+                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.white,
+                                  border: Border.all(color: dividerColor, width: 1)
+                                  ),
+                              child: Row(
+                                children: [
+                                  Text("Filter by", style: cardTextStyle.copyWith(fontWeight: FontWeight.normal)),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Icon(
+                                    Icons.filter_alt_outlined,
+                                    size: 18,
+                                    color: textColor,
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            customButton(height: 30, icon: Icons.upload_file_outlined, title: "Export to Excel", onPressed: () {}),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            customCard(
+                              blurRadius: 3,
+                              padding: EdgeInsets.all(5),
+                              child: Icon(
+                                Icons.list,
+                                size: 18,
+                                color: textColor,
+                              ),
+                            ),
+                            customCard(
+                              blurRadius: 3,
+                              padding: EdgeInsets.all(5),
+                              child: Icon(
+                                Icons.grid_view,
+                                size: 18,
+                                color: textColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                        customCard(
+                          blurRadius: 5,
+                          padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.only(top: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 10,),
+                              Text("Leaves Details", style: menuStyle.copyWith(fontSize: 12)),
+                              SizedBox(height: 10,),
+                          ScrollConfiguration(
+                            behavior: _myCustomScrollBehavior.copyWith(scrollbars: false),
+                            child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: DataTable(
+                                      columnSpacing: 47,
+                                      headingRowColor: MaterialStateProperty.all(searchBg),
+                                      columns: const [
+                                        DataColumn(
+                                          label: Text('Image'),
+                                        ),
+                                        DataColumn(
+                                          label: Text('Name'),
+                                        ),
+                                        DataColumn(
+                                          label: Text('Time off Type'),
+                                        ),
+                                        DataColumn(
+                                          label: Text('Description'),
+                                        ),
+                                        DataColumn(
+                                          label: Text('Start Date'),
+                                        ),
+                                        DataColumn(
+                                          label: Text('End Date'),
+                                        ),
+                                        DataColumn(
+                                          label: Text('Duration'),
+                                        ),
+                                        DataColumn(
+                                          label: Text('Status'),
+                                        ),
+                                      ],
+                                      rows: List.generate(
+                                          10,
+                                          (index) => DataRow(cells: [
+                                                DataCell(Image.asset(
+                                                  "assets/image/profile.png",
+                                                  height: 25,
+                                                )),
+                                                const DataCell(Text('Kmsae')),
+                                                DataCell(Text('Paid Time Off')),
+                                                DataCell(Text('Sick')),
+                                                DataCell(Text('11-11-2023')),
+                                                DataCell(Text('20-11-2023')),
+                                                DataCell(Text('10 Days')),
+                                                DataCell(Row(
+                                                  children: [
+                                                    Container(
+                                                      padding: EdgeInsets.symmetric(horizontal: 5),
+                                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white, border: Border.all(color: greenBg, width: 1)),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(height: 5, width: 5, decoration: const BoxDecoration(shape: BoxShape.circle, color: greenBg)),
+                                                          Text("Approved", style: cardTextStyle.copyWith(fontWeight: FontWeight.normal, color: greenBg)),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                        margin: EdgeInsets.only(left: 5),
+                                                        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white, border: Border.all(color: greenBg, width: 1)),
+                                                        child: Icon(
+                                                          Icons.done,
+                                                          color: greenBg,
+                                                          size: 16,
+                                                        )),
+                                                  ],
+                                                )),
+                                              ]))),
+                                ),
+                              ),
                             ],
                           ),
-                        );
-                      },
+                        )
+                      ],
                     ),
                   ),
                 ),

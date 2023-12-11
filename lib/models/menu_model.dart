@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MenuModels{
-  final IconData icon;
+  final IconData? icon;
   final String name;
+  final String? subName;
   final IconData? suffix;
-  MenuModels( {required this.icon, required this.name,this.suffix});
+  MenuModels({this.icon, required this.name,this.subName,this.suffix});
 }

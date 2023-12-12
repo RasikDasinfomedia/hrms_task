@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hrms_task/utils/leave_bar_chart.dart';
 import 'package:hrms_task/utils/custom_button.dart';
 import 'package:hrms_task/utils/custom_calendar_app.dart';
 import 'package:hrms_task/utils/custom_card.dart';
@@ -255,12 +256,15 @@ class _HrmsScreenState extends State<HrmsScreen> {
                     ],
                   ),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 15),
                         Row(
                           children: [
                             Text("Leaves", style: menuStyle.copyWith(fontSize: 12)),
@@ -305,12 +309,18 @@ class _HrmsScreenState extends State<HrmsScreen> {
                             ),
                           ),
                         ),
-                        customCard(
-                          width: width * 0.3,
-                          padding: EdgeInsets.only(top: 10, right: 17, left: 17),
-                          child: CustomCalendarApp(
-                            [],
-                          ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            customCard(
+                              width: width * 0.3,
+                              padding: const EdgeInsets.only(top: 10, right: 17, left: 17),
+                              child: CustomCalendarApp(
+                                [],
+                              ),
+                            ),
+                            customCard(margin: const EdgeInsets.only(left: 10), width: width * 0.47, height: width * 0.26, child: LeavesBarChart())
+                          ],
                         ),
                         const SizedBox(
                           height: 20,
@@ -322,11 +332,7 @@ class _HrmsScreenState extends State<HrmsScreen> {
                               height: 30,
                               alignment: Alignment.center,
                               margin: const EdgeInsets.only(left: 10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Colors.white,
-                                  border: Border.all(color: dividerColor, width: 1)
-                                  ),
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white, border: Border.all(color: dividerColor, width: 1)),
                               child: TextField(
                                 decoration: const InputDecoration(
                                   border: InputBorder.none,
@@ -348,11 +354,7 @@ class _HrmsScreenState extends State<HrmsScreen> {
                               alignment: Alignment.center,
                               margin: const EdgeInsets.only(left: 10),
                               padding: EdgeInsets.symmetric(horizontal: 5),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Colors.white,
-                                  border: Border.all(color: dividerColor, width: 1)
-                                  ),
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white, border: Border.all(color: dividerColor, width: 1)),
                               child: Row(
                                 children: [
                                   Text("Filter by", style: cardTextStyle.copyWith(fontWeight: FontWeight.normal)),
@@ -396,20 +398,24 @@ class _HrmsScreenState extends State<HrmsScreen> {
                         ),
                         customCard(
                           blurRadius: 5,
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.only(top: 20),
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 10,),
+                              const SizedBox(
+                                height: 10,
+                              ),
                               Text("Leaves Details", style: menuStyle.copyWith(fontSize: 12)),
-                              SizedBox(height: 10,),
-                          ScrollConfiguration(
-                            behavior: _myCustomScrollBehavior.copyWith(scrollbars: false),
-                            child: SingleChildScrollView(
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              ScrollConfiguration(
+                                behavior: _myCustomScrollBehavior.copyWith(scrollbars: false),
+                                child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: DataTable(
-                                      columnSpacing: 47,
+                                      columnSpacing: width * 0.047,
                                       headingRowColor: MaterialStateProperty.all(searchBg),
                                       columns: const [
                                         DataColumn(
@@ -445,16 +451,17 @@ class _HrmsScreenState extends State<HrmsScreen> {
                                                   height: 25,
                                                 )),
                                                 const DataCell(Text('Kmsae')),
-                                                DataCell(Text('Paid Time Off')),
-                                                DataCell(Text('Sick')),
-                                                DataCell(Text('11-11-2023')),
-                                                DataCell(Text('20-11-2023')),
-                                                DataCell(Text('10 Days')),
+                                                const DataCell(Text('Paid Time Off')),
+                                                const DataCell(Text('Sick')),
+                                                const DataCell(Text('11-11-2023')),
+                                                const DataCell(Text('20-11-2023')),
+                                                const DataCell(Text('10 Days')),
                                                 DataCell(Row(
                                                   children: [
                                                     Container(
-                                                      padding: EdgeInsets.symmetric(horizontal: 5),
-                                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white, border: Border.all(color: greenBg, width: 1)),
+                                                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                                                      decoration:
+                                                          BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white, border: Border.all(color: greenBg, width: 1)),
                                                       child: Row(
                                                         children: [
                                                           Container(height: 5, width: 5, decoration: const BoxDecoration(shape: BoxShape.circle, color: greenBg)),

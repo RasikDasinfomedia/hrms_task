@@ -313,7 +313,7 @@ class _HrmsScreenState extends State<HrmsScreen> {
                         Row(
                           children: [
                             customCard(
-                              width: width * 0.3,
+                              width: width * 0.29,
                               padding: const EdgeInsets.only(top: 10, right: 17, left: 17),
                               child: CustomCalendarApp(
                                 [],
@@ -415,7 +415,7 @@ class _HrmsScreenState extends State<HrmsScreen> {
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: DataTable(
-                                      columnSpacing: width * 0.047,
+                                      columnSpacing: width * 0.038,
                                       headingRowColor: MaterialStateProperty.all(searchBg),
                                       columns: const [
                                         DataColumn(
